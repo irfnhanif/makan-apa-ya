@@ -15,8 +15,10 @@ import {
   Beef, 
   Pizza, 
   MoonStar,
+  LeafyGreen
 } from "lucide-react";
 
+// cspell:disable
 export const filterCategories = [
   { name: "Nasi", icon: Utensils },
   { name: "Ayam", icon: Drumstick },
@@ -30,6 +32,7 @@ export const filterCategories = [
   { name: "Sarapan", icon: Croissant },
   { name: "Kopi", icon: Coffee },
   { name: "Berkuah", icon: Soup },
+  { name: "Sayuran", icon: LeafyGreen },
   { name: "Kue dan Roti", icon: CakeSlice },
   { name: "Seafood", icon: Fish },
   { name: "Daging", icon: Beef },
