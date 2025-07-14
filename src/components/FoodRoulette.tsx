@@ -9,6 +9,8 @@ function FoodRoulette() {
   const [displayedFood, setDisplayedFood] = useState<string | null>(null);
   const [animationKey, setAnimationKey] = useState<number>(0);
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [selectedMainCategory, setSelectedMainCategory] =
+    useState<string>("Makanan Utama");
 
   const handleFilterChange = (filterName: string) => {
     setSelectedFilters((prev) =>
@@ -18,12 +20,29 @@ function FoodRoulette() {
     );
   };
 
+  const handleMainCategoryChange = (mainCategory: string) => {
+    setSelectedMainCategory(mainCategory);
+  };
+
   const getFilteredFoods = () => {
+    const mainFilteredFoods =
+      selectedMainCategory === "Makanan Utama"
+        ? foods.filter(
+            (food) =>
+              !(
+                food.categories?.includes("Minuman") ||
+                food.categories?.includes("Snack")
+              )
+          )
+        : foods.filter((food) =>
+            food.categories?.includes(selectedMainCategory)
+          );
+
     if (selectedFilters.length === 0) {
-      return foods;
+      return mainFilteredFoods;
     }
 
-    return foods.filter((food) =>
+    return mainFilteredFoods.filter((food) =>
       selectedFilters.some((filter) => food.categories?.includes(filter))
     );
   };
@@ -48,7 +67,7 @@ function FoodRoulette() {
 
   return (
     <main className="flex items-center justify-center min-h-screen bg-gray-50">
-      <Card className="w-full max-w-md min-h-screen mx-auto rounded-xl shadow-md flex flex-col p-6">
+      <Card className="w-full min-h-screen mx-auto rounded-xl shadow-md flex flex-col p-6">
         <CardHeader className="mb-6">
           <p className="text-3xl pacifico-regular text-center">Makan apa ya?</p>
           <p className="text-sm text-gray-500 text-center mt-2">
@@ -66,7 +85,9 @@ function FoodRoulette() {
         <CardFooter className="flex items-center justify-between pb-2">
           <FilterDrawer
             selectedFilters={selectedFilters}
+            selectedMainCategory={selectedMainCategory}
             onFilterChange={handleFilterChange}
+            onMainCategoryChange={handleMainCategoryChange}
           />
           <Button
             size="lg"
