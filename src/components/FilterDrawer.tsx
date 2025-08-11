@@ -66,7 +66,7 @@ function FilterDrawer({
                 ) : (
                   <Icon className="h-4 w-4" />
                 )}
-                <span className="text-xs leading-tight">{category.name}</span>
+                <span className="text-xs leading-tight p-0.5">{category.name}</span>
               </Toggle>
             );
           })}
