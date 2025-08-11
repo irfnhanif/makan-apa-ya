@@ -89,7 +89,7 @@ function FilterDrawer({
         <div className="p-4 max-h-[60vh] overflow-y-auto">
           <div className="mb-6">
             <h3 className="text-sm font-medium mb-3 text-gray-700">
-              Kategori Utama
+              Utama
             </h3>
             <div className="grid grid-cols-3 gap-2">
               {mainCategories.map((category) => {
@@ -121,19 +121,9 @@ function FilterDrawer({
           {selectedMainCategory && (
             <>
               {renderCategorySection(
-                "Bahan",
-                attributeCategories.bahan,
-                visibleCategories.bahan
-              )}
-              {renderCategorySection(
-                "Asal",
-                attributeCategories.asal,
-                visibleCategories.asal
-              )}
-              {renderCategorySection(
-                "Jenis/Sifat",
-                attributeCategories.jenis,
-                visibleCategories.jenis
+                "Lainnya",
+                attributeCategories.lainnya,
+                visibleCategories.lainnya
               )}
             </>
           )}
