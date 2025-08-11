@@ -91,10 +91,11 @@ function FoodRoulette() {
           />
           <Button
             size="lg"
-            className="w-5/6 mx-auto"
+            className="flex-1 ml-2"
             onClick={handleRoll}
             disabled={rolling}
           >
+            {/* cspell:disable-next-line */}
             {rolling ? "Memilih..." : "Beritahu dong!"}
           </Button>
         </CardFooter>
