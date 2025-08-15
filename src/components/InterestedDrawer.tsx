@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import grabFoodIcon from "@/assets/grabfood.png"
+import grabFoodIcon from "@/assets/grabfood.png";
 import mapsIcon from "@/assets/maps.png";
+import { Copy } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   Drawer,
@@ -49,7 +50,6 @@ function InterestedDrawer({
         <div className="p-4 space-y-4">
           <div className="flex justify-center space-y-2">
             <Button
-              variant="outline"
               className="w-2/3 h-10 inline-flex items-center px-4 py-2"
               onClick={() => {}}
             >
@@ -65,25 +65,26 @@ function InterestedDrawer({
               onClick={() => {}}
             >
               <img src={grabFoodIcon} alt="Icon GrabFood" className="h-7 w-7" />
+              {/* cspell:disable-next-line */}
               Pesan di GrabFood
             </Button>
           </div>
 
           <div className="flex justify-center space-y-2">
             <Button
-              className="w-2/3 h-10 inline-flex items-center px-4 py-"
+              variant="outline"
+              className="w-2/3 h-10 inline-flex items-center px-4 py-2"
               onClick={() => {}}
             >
-              Copy nama makanan
+              <Copy />
+              {/* cspell:disable-next-line */}
+              Salin nama makanan
             </Button>
           </div>
         </div>
 
         <DrawerFooter>
           <DrawerClose asChild>
-            <Button variant="outline" className="w-full">
-              Tutup
-            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
