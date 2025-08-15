@@ -66,7 +66,9 @@ function FilterDrawer({
                 ) : (
                   <Icon className="h-4 w-4" />
                 )}
-                <span className="text-xs leading-tight p-0.5">{category.name}</span>
+                <span className="text-xs leading-tight p-0.5">
+                  {category.name}
+                </span>
               </Toggle>
             );
           })}
@@ -77,7 +79,7 @@ function FilterDrawer({
 
   return (
     <Drawer>
-      <DrawerTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 w-9 mr-2">
+      <DrawerTrigger className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-14 w-14 mr-2">
         <Funnel className="h-4 w-4" />
       </DrawerTrigger>
 
@@ -88,9 +90,7 @@ function FilterDrawer({
 
         <div className="p-4 max-h-[60vh] overflow-y-auto">
           <div className="mb-6">
-            <h3 className="text-sm font-medium mb-3 text-gray-700">
-              Utama
-            </h3>
+            <h3 className="text-sm font-medium mb-3 text-gray-700">Utama</h3>
             <div className="grid grid-cols-3 gap-2">
               {mainCategories.map((category) => {
                 const Icon = category.icon;

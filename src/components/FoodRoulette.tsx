@@ -3,6 +3,7 @@ import { Button } from "./ui/button";
 import { Card, CardHeader, CardContent, CardFooter } from "./ui/card";
 import { foods } from "@/data/foods";
 import FilterDrawer from "./FilterDrawer";
+import InterestedDrawer from "./InterestedDrawer";
 
 function FoodRoulette() {
   const [rolling, setRolling] = useState<boolean>(false);
@@ -74,30 +75,49 @@ function FoodRoulette() {
             Bingung mau makan apa? Coba klik deh...
           </p>
         </CardHeader>
-        <CardContent className="flex-1 flex items-center justify-center mb-24">
+        <CardContent className="flex-1 flex flex-col items-center justify-center mb-20">
           <h1
             key={animationKey}
             className="text-5xl font-bold knewave-regular text-center transition-transform animate-zoomIn"
           >
             {displayedFood ? displayedFood : "?"}
           </h1>
+          {/* cspell:disable-next-line */}
+          {displayedFood && (
+            <Button variant="link" className="mt-6">
+              Lihat gambar?
+            </Button>
+          )}
         </CardContent>
-        <CardFooter className="flex items-center justify-between pb-2">
-          <FilterDrawer
-            selectedFilters={selectedFilters}
-            selectedMainCategory={selectedMainCategory}
-            onFilterChange={handleFilterChange}
-            onMainCategoryChange={handleMainCategoryChange}
-          />
-          <Button
-            size="lg"
-            className="flex-1 ml-2"
-            onClick={handleRoll}
-            disabled={rolling}
-          >
-            {/* cspell:disable-next-line */}
-            {rolling ? "Memilih..." : "Beritahu dong!"}
-          </Button>
+        <CardFooter className="grid grid-rows-2 gap-2 pb-2">
+          <div className="row-start-1">
+            {displayedFood && (
+              <InterestedDrawer displayedFood={displayedFood} />
+            )}
+          </div>
+          <div className="flex items-center gap-2 row-start-2">
+            <FilterDrawer
+              selectedFilters={selectedFilters}
+              selectedMainCategory={selectedMainCategory}
+              onFilterChange={handleFilterChange}
+              onMainCategoryChange={handleMainCategoryChange}
+            />
+            <Button
+              size="lg"
+              className="flex-1 h-14 text-lg"
+              onClick={handleRoll}
+              disabled={rolling}
+            >
+              {/* cspell:disable-next-line */}
+              {displayedFood
+                ? rolling
+                  ? "Memilih..."
+                  : "Cari yang lain"
+                : rolling
+                ? "Memilih..."
+                : "Beritahu dong!"}
+            </Button>
+          </div>
         </CardFooter>
       </Card>
     </main>
