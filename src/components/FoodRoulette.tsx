@@ -66,6 +66,19 @@ function FoodRoulette() {
     }, 60);
   };
 
+  const handleImageLinkClick = () => {
+    if (!displayedFood) return;
+
+    const displayedFoodQuery = displayedFood.replace(/ /g, "+").toLowerCase();
+    const googleSearchImageURL = `https://www.google.com/search?udm=2&q=${displayedFoodQuery}`;
+    const newWindow = window.open(
+      googleSearchImageURL,
+      "_blank",
+      "noopener, noreferrer"
+    );
+    if (newWindow) newWindow.opener = null;
+  };
+
   return (
     <main className="flex items-center justify-center min-h-screen bg-gray-50">
       <Card className="w-full min-h-screen mx-auto rounded-xl shadow-md flex flex-col p-6">
@@ -82,10 +95,14 @@ function FoodRoulette() {
           >
             {displayedFood ? displayedFood : "?"}
           </h1>
-          {/* cspell:disable-next-line */}
           {displayedFood && (
-            <Button variant="link" className="mt-6">
-              Lihat gambar?
+            <Button
+              variant="link"
+              className="mt-6"
+              onClick={handleImageLinkClick}
+            >
+              {/* cspell:disable-next-line */}
+              Lihat gambar
             </Button>
           )}
         </CardContent>
