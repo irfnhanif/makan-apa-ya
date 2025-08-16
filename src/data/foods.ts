@@ -105,10 +105,10 @@ export const foods = [
   { name: "Telur Ceplok (Mata Sapi)", categories: [] },
   { name: "Telur Balado", categories: [] },
   {
-    name: "Tahu & Tempe Goreng",
+    name: "Tahu Tempe Goreng",
     categories: [],
   },
-  { name: "Tahu & Tempe Bacem", categories: [] },
+  { name: "Tahu Tempe Bacem", categories: [] },
   { name: "Tahu Telur", categories: [] },
   { name: "Perkedel Kentang", categories: [] },
   { name: "Bebek Goreng", categories: [] },
