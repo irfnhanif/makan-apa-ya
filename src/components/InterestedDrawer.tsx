@@ -3,16 +3,16 @@ import grabFoodIcon from "@/assets/grabfood.png";
 import mapsIcon from "@/assets/maps.png";
 import { Copy } from "lucide-react";
 import { Button } from "./ui/button";
+import { Label } from "./ui/label";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
-  DrawerFooter,
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
 } from "./ui/drawer";
+import { Toaster, toast } from "sonner";
 
 type InterestedDrawerProps = {
   displayedFood: string;
@@ -22,6 +22,78 @@ function InterestedDrawer({
   displayedFood,
 }: InterestedDrawerProps): React.ReactElement {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleGMapsButtonClick = () => {
+    if (!displayedFood) return;
+
+    // cspell:disable-next-line
+    const displayedFoodQuery = displayedFood.toLowerCase() + " terdekat";
+    const googleMapsURL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+      displayedFoodQuery
+    )}`;
+
+    const newWindow = window.open(
+      googleMapsURL,
+      "_blank",
+      "noopener, noreferrer"
+    );
+    if (newWindow) newWindow.opener = null;
+  };
+
+  const handleGrabFoodButtonClick = () => {
+    if (!displayedFood) return;
+
+    const displayedFoodQuery = displayedFood.toLowerCase();
+    const grabFoodURL = `https://food.grab.com/id/id/restaurants?lng=id&search=${encodeURIComponent(
+      displayedFoodQuery
+    )}&support-deeplink=true&searchParameter=${encodeURIComponent(
+      displayedFoodQuery
+    )}`;
+
+    const newWindow = window.open(
+      grabFoodURL,
+      "_blank",
+      "noopener, noreferrer"
+    );
+    if (newWindow) newWindow.opener = null;
+  };
+
+  const handleCopyButtonClick = async () => {
+    const lowerCaseDisplayedFood = displayedFood.toLowerCase();
+    const showSuccessToast = () => {
+      // cspell:disable-next-line
+      toast.success(
+        <div>
+          <strong>{displayedFood}</strong> telah disalin ke clipboard
+        </div>
+      );
+    };
+
+    const showErrorToast = () => {
+      // cspell:disable-next-line
+      toast.error("Gagal menyalin ke clipboard");
+    };
+
+    try {
+      await navigator.clipboard.writeText(lowerCaseDisplayedFood);
+      showSuccessToast();
+    } catch (error) {
+      console.error("Failed to copy text to clipboard:", error);
+      try {
+        const textArea = document.createElement("textarea");
+        textArea.value = lowerCaseDisplayedFood;
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+        showSuccessToast();
+      } catch (fallbackError) {
+        console.error("Fallback copy method failed:", fallbackError);
+        showErrorToast();
+      }
+    }
+  };
 
   return (
     <Drawer open={isOpen} onOpenChange={setIsOpen}>
@@ -47,11 +119,11 @@ function InterestedDrawer({
           </DrawerDescription>
         </DrawerHeader>
 
-        <div className="p-4 space-y-4">
+        <div className="px-4 pt-4 pb-14 space-y-4">
           <div className="flex justify-center space-y-2">
             <Button
               className="w-2/3 h-10 inline-flex items-center px-4 py-2"
-              onClick={() => {}}
+              onClick={handleGMapsButtonClick}
             >
               <img src={mapsIcon} alt="Icon Google Maps" className="h-7 w-7" />
               {/* cspell:disable-next-line */}
@@ -62,7 +134,7 @@ function InterestedDrawer({
           <div className="flex justify-center space-y-2">
             <Button
               className="w-2/3 h-10 inline-flex items-center px-4 py-2 bg-[#00B14F] text-white"
-              onClick={() => {}}
+              onClick={handleGrabFoodButtonClick}
             >
               <img src={grabFoodIcon} alt="Icon GrabFood" className="h-7 w-7" />
               {/* cspell:disable-next-line */}
@@ -70,11 +142,15 @@ function InterestedDrawer({
             </Button>
           </div>
 
+          <Label className="text-xs text-center block text-gray-500">
+            {/* cspell:disable-next-line */}
+            Khusus untuk GoFood, ShopeeFood, dll.
+          </Label>
           <div className="flex justify-center space-y-2">
             <Button
               variant="outline"
               className="w-2/3 h-10 inline-flex items-center px-4 py-2"
-              onClick={() => {}}
+              onClick={handleCopyButtonClick}
             >
               <Copy />
               {/* cspell:disable-next-line */}
@@ -82,11 +158,6 @@ function InterestedDrawer({
             </Button>
           </div>
         </div>
-
-        <DrawerFooter>
-          <DrawerClose asChild>
-          </DrawerClose>
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );
